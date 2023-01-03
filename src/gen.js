@@ -3,8 +3,6 @@ import { execSync } from "child_process";
 
 const arr = ["0", "1"];
 
-fs.writeFileSync("test.rraa", "");
-
 while (arr.length) {
   const next = arr.shift();
 
@@ -19,9 +17,10 @@ while (arr.length) {
   fs.writeFileSync("test.rraa", buffer, "binary");
 
   try {
-    const stdout = execSync("./test.rraa", { stdio: "pipe" }).toString();
+    const stdout = execSync("./test", { stdio: "pipe" }).toString();
 
-    if (stdout.trim() === "A") {
+    if (stdout.trim() === "!") {
+      console.log(next);
       process.exit(0);
     }
   } catch (err) {}
