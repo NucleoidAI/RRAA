@@ -27,7 +27,7 @@ while (arr.length) {
   } catch (err) {}
 
   arr.push(`0${next}`);
-  arr.push(`${next}0`);
   arr.push(`1${next}`);
+  arr.push(`${next}0`);
   arr.push(`${next}1`);
 }
