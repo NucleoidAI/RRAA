@@ -13,8 +13,7 @@ while (arr.length) {
     buffer[i / 8] = parseInt(string, 2);
   }
 
-  fs.rmSync("test.rraa");
-  fs.writeFileSync("test.rraa", buffer, "binary");
+  fs.writeFileSync("test", buffer, { encoding: "binary", mode: 0o777 });
 
   try {
     const stdout = execSync("./test", { stdio: "pipe" }).toString();
