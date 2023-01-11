@@ -41,7 +41,7 @@ while (arr.length) {
 
   if (index > 1_000_000) {
     index = 0;
-    fs.writeFileSync("log", `${moment().format()} ${arr.length} ${arr[0]}`);
+    fs.appendFileSync("log", `${moment().format()} ${arr.length} ${arr[0]}\n`);
   } else {
     index++;
   }
