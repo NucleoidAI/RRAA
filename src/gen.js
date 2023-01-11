@@ -23,10 +23,13 @@ while (arr.length) {
     buffer[i / 8] = parseInt(string, 2);
   }
 
-  fs.writeFileSync("test", buffer, { encoding: "binary", mode: 0o777 });
+  fs.writeFileSync("./test", buffer, { encoding: "binary", mode: 0o777 });
 
   try {
-    const stdout = execSync("./test", { stdio: "pipe" }).toString();
+    const stdout = execSync("./test", {
+      stdio: "pipe",
+      input: "TEST",
+    }).toString();
 
     if (stdout.trim() === "!") {
       console.log(next);
@@ -41,7 +44,10 @@ while (arr.length) {
 
   if (index > 1_000) {
     index = 0;
-    fs.appendFileSync("log", `${moment().format()} ${arr.length} ${arr[0]}\n`);
+    fs.appendFileSync(
+      "./log",
+      `${moment().format()} ${arr.length} ${arr[0]}\n`
+    );
   } else {
     index++;
   }
