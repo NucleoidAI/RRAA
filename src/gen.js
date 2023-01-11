@@ -2,9 +2,16 @@ import fs from "fs";
 import { execSync } from "child_process";
 
 const arr = ["0", "1"];
+const map = new Map();
 
 while (arr.length) {
   const next = arr.shift();
+
+  if (map.get(next)) {
+    continue;
+  } else {
+    map.set(next, true);
+  }
 
   const buffer = Buffer.alloc(Math.ceil(next.length / 8));
 
