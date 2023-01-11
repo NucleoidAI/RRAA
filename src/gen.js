@@ -4,6 +4,8 @@ import { execSync } from "child_process";
 const arr = ["0", "1"];
 const map = new Map();
 
+let index = 0;
+
 while (arr.length) {
   const next = arr.shift();
 
@@ -35,4 +37,11 @@ while (arr.length) {
   arr.push(`1${next}`);
   arr.push(`${next}0`);
   arr.push(`${next}1`);
+
+  if (index > 1_000_000) {
+    index = 0;
+    fs.writeFileSync("log", `${arr.length} ${arr.splice(1, 1)}`);
+  } else {
+    index++;
+  }
 }
