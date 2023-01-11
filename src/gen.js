@@ -1,5 +1,6 @@
 import fs from "fs";
 import { execSync } from "child_process";
+import moment from "moment";
 
 const arr = ["0", "1"];
 const map = new Map();
@@ -40,7 +41,7 @@ while (arr.length) {
 
   if (index > 1_000_000) {
     index = 0;
-    fs.writeFileSync("log", `${arr.length} ${arr.splice(1, 1)}`);
+    fs.writeFileSync("log", `${moment().format()} ${arr.length} ${arr[0]}`);
   } else {
     index++;
   }
