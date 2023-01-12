@@ -32,7 +32,8 @@ while (arr.length) {
     }).toString();
 
     if (stdout.trim() === "!") {
-      console.log(next);
+      fs.appendFileSync("./log.txt", `---\n`);
+      fs.appendFileSync("./log.txt", `${next}\n`);
       process.exit(0);
     }
   } catch (err) {}
@@ -45,8 +46,8 @@ while (arr.length) {
   if (index > 1_000) {
     index = 0;
     fs.appendFileSync(
-      "./log",
-      `${moment().format()} ${arr.length} ${arr[0]}\n`
+      "./log.txt",
+      `${moment().format()} ${map.size} ${arr.length} ${arr[0]}\n`
     );
   } else {
     index++;
