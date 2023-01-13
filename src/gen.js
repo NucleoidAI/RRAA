@@ -10,16 +10,24 @@ let index = 0;
 while (arr.length) {
   const next = arr.shift();
 
-  if (map.get(next)) {
+  arr.push(`0${next}`);
+  arr.push(`1${next}`);
+  arr.push(`${next}0`);
+  arr.push(`${next}1`);
+
+  const size = Math.ceil(next.length / 8);
+  const sequence = next.padEnd(size * 8, "0");
+
+  if (map.get(sequence)) {
     continue;
   } else {
-    map.set(next, true);
+    map.set(sequence, true);
   }
 
-  const buffer = Buffer.alloc(Math.ceil(next.length / 8));
+  const buffer = Buffer.alloc(size);
 
   for (let i = 0; i < next.length; i += 8) {
-    const string = next.substring(i, i + 8);
+    const string = sequence.substring(i, i + 8);
     buffer[i / 8] = parseInt(string, 2);
   }
 
@@ -34,14 +42,10 @@ while (arr.length) {
     if (stdout.trim() === "!") {
       fs.appendFileSync("./log.txt", `---\n`);
       fs.appendFileSync("./log.txt", `${next}\n`);
+      fs.writeFileSync("./next.seq", `${next}\n`);
       process.exit(0);
     }
   } catch (err) {}
-
-  arr.push(`0${next}`);
-  arr.push(`1${next}`);
-  arr.push(`${next}0`);
-  arr.push(`${next}1`);
 
   if (index > 1_000) {
     index = 0;
