@@ -10,11 +10,6 @@ let index = 0;
 while (arr.length) {
   const next = arr.shift();
 
-  arr.push(`0${next}`);
-  arr.push(`1${next}`);
-  arr.push(`${next}0`);
-  arr.push(`${next}1`);
-
   const size = Math.ceil(next.length / 8);
   const sequence = next.padEnd(size * 8, "0");
 
@@ -51,9 +46,14 @@ while (arr.length) {
     index = 0;
     fs.appendFileSync(
       "./log.txt",
-      `${moment().format()} ${map.size} ${arr.length} ${arr[0]}\n`
+      `${moment().format()} ${map.size} ${arr.length} ${next}\n`
     );
   } else {
     index++;
   }
+
+  arr.push(`0${next}`);
+  arr.push(`1${next}`);
+  arr.push(`${next}0`);
+  arr.push(`${next}1`);
 }
